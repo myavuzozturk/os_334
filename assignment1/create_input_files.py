@@ -3,7 +3,7 @@ import random
 number_of_files = 10
 
 
-for ii in range(number_of_files):
+for ii in range(number_of_files+1):
     filename = "input"+str(ii)+".txt"
 
     f = open(filename, 'w')

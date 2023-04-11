@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <string.h>
+#include<sys/wait.h>
 
 
 int i, ysf = 7;
@@ -9,6 +11,8 @@ void doSomeWork(char* name)
 {
 	if (strcmp(name, "child") == 0)
 		ysf = 888888;
+
+
 	for (i = 0; i < 5; i++)
 	{
 		sleep(1);
@@ -30,14 +34,14 @@ sleep(4);
 	else if (pid  == 0)
 	{
 		printf("fork returned with %d for child\n", pid);
-//sleep(12);
+		sleep(12);
 		doSomeWork("child");
 		exit(0);
 	}
 	else
 		printf("fork returned with %d for parent\n", pid);
 
-sleep(12); //zombie process demo
+//sleep(12); //zombie process demo
 		
 	doSomeWork("parent");
 

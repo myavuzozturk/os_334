@@ -1,4 +1,5 @@
 #include <pthread.h>
+#include <semaphore.h>
 #include <stdio.h>
 
 #define d 2
@@ -16,10 +17,12 @@ int Mat[m][m] = {
 	{2,1,0,8},
 };
 
-void doShifts() 
+void* doShifts() 
 {
+	int i, j, k;
+
 	// Row shift
-	int firstRow[m], i, j, k;
+	int firstRow[m];
 	for (k=1; k<=s; k++) {
 		for (j=0; j<m; j++)
 			firstRow[j] = Mat[0][j];
@@ -32,7 +35,7 @@ void doShifts()
 	}
 
 	// Col shift
-	int lastCol[m], i, j, k;
+	int lastCol[m];
 	for (k=1; k<=s; k++) {
 		for (i=0; i<m; i++)
 			lastCol[i] = Mat[i][m-1];
@@ -42,22 +45,26 @@ void doShifts()
 		}
 		for (i=0; i<m; i++)
 			Mat[i][0] = lastCol[i];
+	}
 }
 
 int main(int argc, char* argv[]) 
 {
-	// Semaphore mutex = 1;
-	// Semaphore barrier = 0;
-	// int n = 5, count = 0;
-
 	pthread_t threads[d];
 	int i,j;
-	
-	for (i=0; i<d; i++)
-		pthread_create(&threads[i], NULL, doShifts, (int) i);
 
-	doRowShift(Mat);
-	doColShift(Mat);
+	for (i=0; i<d; i++)
+		pthread_create(&threads[i], NULL, doShifts, NULL);
+	for (i=0; i<d; i++)
+		pthread_join(threads[i], NULL);
+
+	sem_init(&mutex, 0, 1);
+	sem_init(&barrier, 0, 0);
+	int n = 5, count = 0;
+
+	// doShifts();
+
+
 	for (i=0; i<m; i++) {
 		for (j=0; j<m; j++)
     		printf("%d ", Mat[i][j]);

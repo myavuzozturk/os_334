@@ -48,17 +48,8 @@ void doColShift()
 
 int main(int argc, char* argv[]) 
 {
-	// Semaphore mutex = 1;
-	// Semaphore barrier = 0;
-	// int n = 5, count = 0;
-	m/d
-	pthread_t threads[d];
-	int i;
-	for (i=0; i<d; i++)
-		pthread_create(&threads[i], NULL, doDotProduct, (int) i);
-
-	doRowShift(Mat);
-	doColShift(Mat);
+	doRowShift();
+	doColShift();
 	for (int i=0; i<m; i++) {
 		for (int j=0; j<m; j++)
     		printf("%d ", Mat[i][j]);

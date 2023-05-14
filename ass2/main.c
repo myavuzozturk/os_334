@@ -17,6 +17,10 @@ int Mat[m][m] = {
 	{2,1,0,8},
 };
 
+sem_t mutex;
+sem_t barrier;
+int count=0, n=2;
+
 void* doShifts() 
 {
 	int i, j, k;
@@ -33,6 +37,15 @@ void* doShifts()
 		for (j=0; j<m; j++)
 			Mat[m-1][j] = firstRow[j];
 	}
+
+	sem_wait(&mutex);
+	count++;
+	sem_post(&mutex);
+
+	if(count==n)
+		sem_post(&barrier);
+	sem_wait(&barrier);
+	sem_post(&barrier);
 
 	// Col shift
 	int lastCol[m];
@@ -60,7 +73,6 @@ int main(int argc, char* argv[])
 
 	sem_init(&mutex, 0, 1);
 	sem_init(&barrier, 0, 0);
-	int n = 5, count = 0;
 
 	// doShifts();
 

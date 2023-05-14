@@ -3,23 +3,25 @@
 
 #define d 2
 #define m 4
-#define s 2
+#define s 1
 
 void doRowShift(int Mat[m][m]) {
 	
 	int firstRow[m], i, j, k;
-
-	for (i=1; i=s; i++) {
-		for (j=0; j=(m-1); j++)
+	// printf("%d \n",Mat[1][1]);
+	// for (i=1; i<=s; i++) {
+		for (j=0; j<m; j++)
 			firstRow[j] = Mat[0][j];
-		for (k=0; k=(m-2); k--)
-			Mat[k][j] = Mat[k+1][j];
-		for (j=0; j=(m-1); j++)
+		for (j=0; j<m; j++) {
+			for (k=0; k<(m-1); k++)
+				Mat[k][j] = Mat[k+1][j];
+		}
+		for (j=0; j<m; j++)
 			Mat[m-1][j] = firstRow[j];
-	}
+	// }
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char* argv[]) 
 {
 	int Mat[m][m] = {
     	{1,2,3,4},

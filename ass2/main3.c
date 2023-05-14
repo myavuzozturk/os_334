@@ -25,15 +25,15 @@ pthread_mutex_t myMutex;
 
 void* doDotProd(int offset, int i1, int j2)
 {
-	int k;
-	int start = offset*n
+	int aa, i;
+	int start = offset*n;
 	int end = offset*n + n;
 
 	int locSum = 0, a, b;
 	for (i=0; i<n; i++) {
 		a = Mat1[i1][i];
 		b = Mat1[i][j2];
-		for (k=start; k<end; k++)
+		for (aa=start; aa<end; aa++)
 			locSum += a*b;
 	}
 
@@ -44,6 +44,7 @@ void* doDotProd(int offset, int i1, int j2)
 
 void* writeSum() 
 {
+	pthread_t threads[m];
 	int i,j,l;
 	for (i=0; i<x; i++)
 		pthread_create(&threads[i], NULL, doDotProd, NULL);

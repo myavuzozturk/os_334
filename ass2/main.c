@@ -33,14 +33,16 @@ void doColShift()
 	int lastCol[m], i, j, k;
 	// printf("%d \n",Mat[1][1]);
 	for (k=1; k<=s; k++) {
-		for (i=(m-1); i>=0; i--)
+		for (i=0; i<m; i++) {
 			lastCol[i] = Mat[i][m-1];
-		for (i=(m-1); i>=0; i--) {
-			for (j=0; j<(m-1); j++)
-				Mat[i][j] = Mat[i][j+1];
+			// printf("%d \n",lastCol[i]);
+		}
+		for (i=0; i<m; i++) {
+			for (j=(m-2); j>=0; j--)
+				Mat[i][j] = Mat[i][j-1];
 		}
 		for (i=0; i<m; i++)
-			Mat[i][m-1] = lastCol[i];
+			Mat[i][0] = lastCol[i];
 	}
 }
 
@@ -48,11 +50,10 @@ int main(int argc, char* argv[])
 {
 	// doRowShift(Mat);
 	doColShift(Mat);
-	for (int i=0; i<m; i++) {
-		for (int j=0; j<m; j++)
-    		printf("%d ", Mat[i][j]);
-		printf("\n");
-	}
+	// for (int i=0; i<m; i++) {
+	// 	for (int j=0; j<m; j++)
+    // 		printf("%d ", Mat[i][j]);
+	// 	printf("\n");
+	// }
 	return 0;
 }
-

@@ -44,6 +44,7 @@ int main(int argc, char* argv[])
 
 	doSum();
 
+	printf("Sum: \n");
 	for (i=0; i<m; i++) {
 		for (j=0; j<m; j++)
     		printf("%d ", Mat[i][j]);

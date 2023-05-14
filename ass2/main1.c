@@ -7,10 +7,6 @@
 #define s 1
 
 int Mat[m][m] = {
-    // {1,2,3,4},
-    // {5,6,7,8},
-	// {9,10,11,12},
-	// {13,14,15,16},
 	{7,6,5,3},
     {8,2,4,5},
 	{7,3,1,9},
@@ -71,11 +67,19 @@ void* doShifts()
 
 int main(int argc, char* argv[]) 
 {
+	int i,j;
+
+	printf("Original matrix: \n");
+	for (i=0; i<m; i++) {
+		for (j=0; j<m; j++)
+    		printf("%d ", Mat[i][j]);
+		printf("\n");
+	}
+
 	pthread_t threads[d];
 	sem_init(&mutex, 0, 1);
 	sem_init(&barrier, 0, 0);
-	int i,j;
-
+	
 	for (i=0; i<d; i++)
 		pthread_create(&threads[i], NULL, doShifts, NULL);
 	for (i=0; i<d; i++)
@@ -83,6 +87,7 @@ int main(int argc, char* argv[])
 
 	doShifts();
 
+	printf("Shifted matrix: \n");
 	for (i=0; i<m; i++) {
 		for (j=0; j<m; j++)
     		printf("%d ", Mat[i][j]);

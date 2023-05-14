@@ -68,11 +68,11 @@ int main(int argc, char* argv[])
 	int i,j;
 
 	for (i=0; i<m; i++)
-		pthread_create(&threads[i], NULL, doSum, NULL);
+		pthread_create(&threads[i], NULL, writeSum, NULL);
 	for (i=0; i<m; i++)
 		pthread_join(threads[i], NULL);
 
-	doSum();
+	writeSum();
 
 	for (i=0; i<m; i++) {
 		for (j=0; j<m; j++)

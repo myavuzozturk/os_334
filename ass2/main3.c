@@ -4,6 +4,7 @@
 #define m 4
 #define n 4
 #define k 4
+#define x 2
 
 int Mat1[m][n] = {
     {1,2,3,4},
@@ -22,24 +23,42 @@ int sum;
 
 pthread_mutex_t myMutex;
 
-void* doDotProd(void* p, int i1, int j2)
+void* doDotProd(int offset, int i1, int j2)
 {
-	int offset = (int) p;
 	int k;
-	start = offset*n
-	end = offset*n + n;
+	int start = offset*n
+	int end = offset*n + n;
 
 	int locSum = 0, a, b;
-	for (i = 0; i < n; i++) {
+	for (i=0; i<n; i++) {
 		a = Mat1[i1][i];
 		b = Mat1[i][j2];
-		for (k = start; k < end; k++)
-			locSum += a[i]*b[i];
+		for (k=start; k<end; k++)
+			locSum += a*b;
 	}
 
 	pthread_mutex_lock(&myMutex);
 	sum += locSum;
 	pthread_mutex_unlock(&myMutex);
+}
+
+void* writeSum() 
+{
+	int i,j,l;
+	for (i=0; i<x; i++)
+		pthread_create(&threads[i], NULL, doDotProd, NULL);
+	for (i=0; i<m; i++)
+		pthread_join(threads[i], NULL);
+	
+	for (j=0; j<n; j++) {
+		for (i=0; i<m; i++) {
+			pthread_mutex_lock(&myMutex);
+			for (l=0; l<k; l++)
+				doDotProd(m/x, i, l);
+				Mat[i][l] = sum;
+			pthread_mutex_unlock(&myMutex);
+		}
+	}
 }
 
 int main(int argc, char* argv[]) 

@@ -6,10 +6,14 @@
 #define s 1
 
 int Mat[m][m] = {
-    {1,2,3,4},
-    {5,6,7,8},
-	{9,10,11,12},
-	{13,14,15,16},
+    // {1,2,3,4},
+    // {5,6,7,8},
+	// {9,10,11,12},
+	// {13,14,15,16},
+	{7,6,5,3},
+    {8,2,4,5},
+	{7,3,1,9},
+	{2,1,0,8},
 };
 
 void doRowShift() 
@@ -44,6 +48,12 @@ void doColShift()
 
 int main(int argc, char* argv[]) 
 {
+	// Semaphore mutex = 1;
+	// barrier = 0;
+	// int n = 5, count = 0;
+	m/d
+	pthread_t threads[d];
+
 	doRowShift(Mat);
 	doColShift(Mat);
 	for (int i=0; i<m; i++) {

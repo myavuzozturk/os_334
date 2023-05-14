@@ -2,7 +2,7 @@
 #include <semaphore.h>
 #include <stdio.h>
 
-#define d 2
+#define d 4
 #define m 4
 #define s 1
 
@@ -20,7 +20,7 @@ int Mat[m][m] = {
 pthread_mutex_t myMutex;
 sem_t mutex;
 sem_t barrier;
-int count=0, n=2;
+int count=0, n=d;
 
 void* doShifts() 
 {
@@ -81,7 +81,7 @@ int main(int argc, char* argv[])
 	for (i=0; i<d; i++)
 		pthread_join(threads[i], NULL);
 
-	// doShifts();
+	doShifts();
 
 	for (i=0; i<m; i++) {
 		for (j=0; j<m; j++)

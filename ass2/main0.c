@@ -16,9 +16,8 @@ int Mat[m][m] = {
 	{2,1,0,8},
 };
 
-void doShifts() 
+void doRowShift() 
 {
-	// Row shift
 	int firstRow[m], i, j, k;
 	for (k=1; k<=s; k++) {
 		for (j=0; j<m; j++)
@@ -30,8 +29,10 @@ void doShifts()
 		for (j=0; j<m; j++)
 			Mat[m-1][j] = firstRow[j];
 	}
+}
 
-	// Col shift
+void doColShift() 
+{
 	int lastCol[m], i, j, k;
 	for (k=1; k<=s; k++) {
 		for (i=0; i<m; i++)
@@ -42,6 +43,7 @@ void doShifts()
 		}
 		for (i=0; i<m; i++)
 			Mat[i][0] = lastCol[i];
+	}
 }
 
 int main(int argc, char* argv[]) 
@@ -49,17 +51,16 @@ int main(int argc, char* argv[])
 	// Semaphore mutex = 1;
 	// Semaphore barrier = 0;
 	// int n = 5, count = 0;
-
+	m/d
 	pthread_t threads[d];
-	int i,j;
-	
+	int i;
 	for (i=0; i<d; i++)
-		pthread_create(&threads[i], NULL, doShifts, (int) i);
+		pthread_create(&threads[i], NULL, doDotProduct, (int) i);
 
 	doRowShift(Mat);
 	doColShift(Mat);
-	for (i=0; i<m; i++) {
-		for (j=0; j<m; j++)
+	for (int i=0; i<m; i++) {
+		for (int j=0; j<m; j++)
     		printf("%d ", Mat[i][j]);
 		printf("\n");
 	}
